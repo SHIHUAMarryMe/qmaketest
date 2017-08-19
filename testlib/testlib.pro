@@ -58,19 +58,28 @@ isEmpty(target){
 
 isEmpty(includes){
     includes.path = $$INCLUDE_INSTALL_DIR
-    includes.files += ./*.h
+    includes.files += $$PWD/*.h
 }
 
 QMAKE_PKGCONFIG_DESCRIPTION = The lib for testing
 QMAKE_PKGCONFIG_DESTDIR = pkgconfig
-QMAKE_PKGCONFIG_NAME = testlib
 QMAKE_PKGCONFIG_VERSION = $$VERSION
+
+
+CONFIG(debug, debug|release){
+    QMAKE_PKGCONFIG_NAME = testdebug
+
+}else{
+    QMAKE_PKGCONFIG_NAME = testrelease
+}
 
 QMAKE_PKGCONFIG_LIBDIR = $$traget.path
 QMAKE_PKGCONFIG_INCDIR = $$includes.path
 
 
-INSTALLS += target includes
+INSTALLS += target \
+            includes
+
 
 
 
